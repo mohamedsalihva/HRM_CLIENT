@@ -24,13 +24,13 @@ const handlelogin =async ()=>{
 }
 
 if (isLoggedIn) {
-  window.location.href = '/landing-page';
+  window.location.href = '/Landingpage';
 }
 
   
   return (
     <div>
-   <form action="post">
+   
       <section className="vh-100 mt-5">
   <div className="container-fluid h-custom">
     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -42,7 +42,7 @@ if (isLoggedIn) {
         />
       </div>
       <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
+       
           <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
             <p className="lead fw-normal mb-0 me-3 text-dark">Sign in with</p>
             <button type="button" className="btn btn-primary btn-floating mx-1">
@@ -59,6 +59,7 @@ if (isLoggedIn) {
             <p className="text-center fw-bold mx-3 mb-0">Or</p>
           </div>
           {/* Email input */}
+          <form action="post">
           <div className="form-outline mb-4">
            
             <input
@@ -84,7 +85,7 @@ if (isLoggedIn) {
             </label>
             
           </div>
-          
+         
           <div className="d-flex justify-content-between align-items-center">
             {/* Checkbox */}
             <div className="form-check mb-0">
@@ -145,7 +146,7 @@ if (isLoggedIn) {
     {/* Right */}
   </div>
 </section>
-  </form>
+
 
     </div>
   );

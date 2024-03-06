@@ -6,6 +6,7 @@ import AddUserPage from './components/landingpage/Adduserpage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/landingpage/Footer';
 
+
 const App = () => {
   return (
     <Router>
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/login" element={<LandingPage/>} />
         <Route path="/add-user" element={<AddUserPage />} />
       </Routes>
+ 
       {/* <Footer /> */}
     </Router>
   );
