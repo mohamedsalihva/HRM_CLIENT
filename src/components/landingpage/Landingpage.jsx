@@ -14,9 +14,9 @@ const LandingPage = () => {
     <div>
       <Navbar/>
       <header id="about">
-        <div class="container text-center">
+        <div className="container text-center">
             <h1 id="title">Welcome to My Portfolio</h1>
-            <p class="lead mb-4">I am MOSalih, a full-stack web developer</p>
+            <p className="lead mb-4">I am MOSalih, a full-stack web developer</p>
             <a href="#contact" class="btn btn-light btn-lg">Get in Touch</a>
         </div>
     </header>
