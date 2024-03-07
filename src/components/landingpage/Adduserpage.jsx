@@ -42,7 +42,7 @@ const handleclick =()=>{
                         className="form-control"
                       />
                       <label className="form-label" htmlFor="form3Example3c">
-                        Your Email
+                        Your Emaill
                       </label>
                     </div>
                   </div>
