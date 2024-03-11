@@ -7,38 +7,45 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [error,setError]=useState('')
 
   const handleLogin = async (e) => {
     e.preventDefault();
   
-    const HOSTED_SERVER_URL = 'http://localhost:5000';
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+  
+    const SERVER_URL = 'http://localhost:5000';
   
     try {
-      const response = await axios.post(`${HOSTED_SERVER_URL}/login`, {
+      const response = await axios.post(`${SERVER_URL}/login`, {
         email,
         password,
       });
   
-      if (response.status === 200 && response.data.token) {
-        console.log('Login successful');
-        console.log('Status Code:', response.status);
-        console.log('Token:', response.data.token);
-        console.log('Message:', response.data.message);
-        alert('Login Successful');
-        localStorage.setItem('token', response.data.token); // Store token in local storage
-        setIsLoggedIn(true);
-      } else {
-        console.log('Login Failed');
-        console.error('Login failed:', response.data.error);
-        alert('Login Failed');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-    }
-  };
+      
+      let responseData = await response.data;
+      let token = responseData.data;
+      console.log("token:", token);
+      console.log("statuscode:",response.data.statusCode);
+      console.log("message:",response.data.message)
+      localStorage.setItem("token", token);
+      setIsLoggedIn(true);
+      
+      alert('Login successful');
+     
+      // return { statusCode: 200, data: token, message: "Login success" };
+
+  } catch (error) {
+      console.log("Error:", error);
+      alert('Login failed');
+      return { statusCode: 404, message: "Something went wrong" };
+  }
+}
+
 
   if (isLoggedIn) {
     window.location.href = '/Landingpage';
