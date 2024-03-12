@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
 function ViewListPage() {
@@ -86,6 +87,7 @@ function ViewListPage() {
     </td>
     <td>
     <button onClick={()=> handleview(item)}>view</button>
+    
     </td>
   </tr>
 ))}
@@ -95,7 +97,7 @@ function ViewListPage() {
           </tbody>
         </table>
       </div>
-      {selectedUser && (
+      {/* {selectedUser && (
         <div className="user-details">
           <h2>User Details</h2>
           <p><strong>ID:</strong> {selectedUser.id}</p>
@@ -104,7 +106,7 @@ function ViewListPage() {
           <p><strong>Address:</strong> {selectedUser.address}</p>
           <button onClick={handleCloseDetails}>Close</button>
         </div>
-      )}
+      )} */}
 
     </div>
   );

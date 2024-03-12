@@ -36,7 +36,6 @@ const AddUserPage = () => {
 
     try {
       const response = await axios.post(`${SERVER_URL}/Adduser`, {
-        id,
         name,
         email,
         address,

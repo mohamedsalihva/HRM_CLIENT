@@ -135,7 +135,7 @@ const LoginPage = () => {
                   <div className="small fw-bold mt-2 pt-1 mb-3">
                     Don't have an account?{' '}
                     <div href="#!" className="link-danger">
-                      <Link to="/add-user">ADDUSER</Link>
+                      {/* <Link to="/add-user">ADDUSER</Link> */}
                     </div>
                   </div>
                 </div>
