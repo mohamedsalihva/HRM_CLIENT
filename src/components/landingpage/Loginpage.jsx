@@ -37,8 +37,6 @@ const LoginPage = () => {
       
       alert('Login successful');
      
-      // return { statusCode: 200, data: token, message: "Login success" };
-
   } catch (error) {
       console.log("Error:", error);
       alert('Login failed');
@@ -137,7 +135,7 @@ const LoginPage = () => {
                   <div className="small fw-bold mt-2 pt-1 mb-3">
                     Don't have an account?{' '}
                     <div href="#!" className="link-danger">
-                      <Link to="/add-user">ADD-USER</Link>
+                      <Link to="/add-user">ADDUSER</Link>
                     </div>
                   </div>
                 </div>
