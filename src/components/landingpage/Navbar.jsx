@@ -12,6 +12,7 @@ const Navbar = () => {
       <li><a href="#orders">Orders</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><Link to="/viewList">ViewList</Link></li>
     </ul>
   </div>
 </nav>

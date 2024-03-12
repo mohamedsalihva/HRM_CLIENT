@@ -4,7 +4,7 @@ import LandingPage from './components/landingpage/Landingpage';
 import LoginPage from './components/landingpage/Loginpage';
 import AddUserPage from './components/landingpage/Adduserpage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Footer from './components/landingpage/Footer';
+import ViewListPage from './components/landingpage/ViewListPage';
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/Landingpage" element={<LandingPage />} />
         <Route path="/add-user" element={<AddUserPage />} />
+        <Route path="/viewList" element={<ViewListPage/>} />
         {/* Add a catch-all route to redirect to LoginPage if route not found */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
