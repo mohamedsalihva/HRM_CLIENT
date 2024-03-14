@@ -87,8 +87,7 @@ function ViewListPage() {
       />
     </td>
     <td>
-
-<li><Link to="/view">view</Link></li>
+    <button onClick={()=> handleview(item)}>view</button>
     </td>
   </tr>
 ))}
@@ -98,7 +97,7 @@ function ViewListPage() {
           </tbody>
         </table>
       </div>
-      {/* {selectedUser && (
+      {selectedUser && (
         <div className="user-details">
           <h2>User Details</h2>
           <p><strong>ID:</strong> {selectedUser.id}</p>
@@ -107,7 +106,7 @@ function ViewListPage() {
           <p><strong>Address:</strong> {selectedUser.address}</p>
           <button onClick={handleCloseDetails}>Close</button>
         </div>
-      )} */}
+      )}
 
     </div>
   );
