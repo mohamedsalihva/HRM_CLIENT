@@ -43,24 +43,25 @@ function ViewListPage() {
         <table>
           <thead>
             <tr>
-              <td>ID</td>
+             
               <td>NAME</td>
               <td>EMAIL</td>
               <td>ADDRESS</td>
+             
             </tr>
           </thead>
           <tbody>
 
           {data.map((item, index) => (
   <tr key={index}>
-    <td>
+    {/* <td>
       <input
         type="text"
         name="id"
         value={item._id}
         disabled={true}
       />
-    </td>
+    </td> */}
     <td>
       <input
         type="text"
@@ -86,8 +87,8 @@ function ViewListPage() {
       />
     </td>
     <td>
-    <button onClick={()=> handleview(item)}>view</button>
-    
+
+<li><Link to="/view">view</Link></li>
     </td>
   </tr>
 ))}
