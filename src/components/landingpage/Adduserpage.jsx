@@ -84,7 +84,7 @@ const AddUserPage = () => {
                               onChange={handleNameChange}
                             />
                             <label className="form-label" htmlFor="form3Example1c">
-                              Your Name
+                              Your Namee
                             </label>
                           </div>
                         </div>
