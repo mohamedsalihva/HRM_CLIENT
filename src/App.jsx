@@ -16,8 +16,8 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/Landingpage" element={<LandingPage />} />
         <Route path="/add-user" element={<AddUserPage />} />
-        <Route path="/viewList" element={<ViewListPage/>} /> 
-        <Route path="/view" element={<UserDetailsPage/>} /> 
+        <Route exact path="/viewList" element={<ViewListPage/>} />
+        <Route path="/user/:id" element={<UserDetailsPage/>} />
         {/* Add a catch-all route to redirect to LoginPage if route not found */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
