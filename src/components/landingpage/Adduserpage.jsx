@@ -46,6 +46,10 @@ const AddUserPage = () => {
       if (response && response.status === 201) {
         alert("Form submitted successfully");
         console.log("Form submitted successfully");
+        console.log("name:",name);
+        console.log("emai:",email);
+        console.log("password:",password);
+        console.log("address:",address);
         setName('');
         setPassword('');
         setEmail('');
@@ -84,7 +88,7 @@ const AddUserPage = () => {
                               onChange={handleNameChange}
                             />
                             <label className="form-label" htmlFor="form3Example1c">
-                              Your Namee
+                              Name
                             </label>
                           </div>
                         </div>
@@ -99,7 +103,7 @@ const AddUserPage = () => {
                               onChange={handleEmailChange}
                             />
                             <label className="form-label" htmlFor="form3Example3cEmail">
-                              Your Email
+                              Email
                             </label>
                           </div>
                         </div>

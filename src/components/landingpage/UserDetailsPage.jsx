@@ -5,30 +5,72 @@ import { useLocation } from 'react-router-dom';
 function UserDetailsPage() {
   const location = useLocation();
   const user = location.state.user;
-  // const [isEditing, setIsEditing] = useState(false);
-  // const [updatedUser, setUpdatedUser] = useState
+  const [name, setName] = useState(user.name || '');
+  const [email, setEmail] = useState(user.email || '');
+  const [address, setAddress] = useState(user.address || '');
 
-
-  const handleEdit = (id) => {
-
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
-  const handleSave = async () => {
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  
+  const handleEdit = async (e) => {
+    e.preventDefault();
     const SERVER_URL = 'http://localhost:5000';
 
     try {
-      const response = await axios.put(`${SERVER_URL}/UpdateUser`, updatedUser);
+      const response = await axios.put(`${SERVER_URL}/UpdateUser`, {
+        id: user._id, 
+        name,
+        email,
+        address,
+        
+      });
+      console.log("name:",name);
+      console.log("email:",email);
+    
+      console.log("address:",address);
 
-      console.log('User updated:', response.data);
-      alert("User updated successfully");
+      
+      console.log("response:", response);
 
-      // setIsEditing(false);
+      alert("User details updated successfully.");
     } catch (error) {
       console.error('Error updating user:', error);
       alert('Updation failed');
     }
   };
 
+
+  const  handleDelete =async(e)=>{
+ e.preventDefault();
+
+ const SERVER_URL='http://localhost:5000';
+
+      try {
+       const response = await axios.delete(`${SERVER_URL}/delete`,{
+        data: { id: user.id }, 
+       });
+       console.log("id:", user._id);
+       console.log("response:",response);
+
+       alert("user deleted succesfully");
+
+      } catch (error) {
+        console.error('Error updating user:', error);
+        alert('deletion failed')
+      }
+  }
+
+  
 
   return (
     <div>
@@ -43,7 +85,7 @@ function UserDetailsPage() {
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                         VIEW USER
                       </p>
-                      <form className="mx-1 mx-md-4">
+                      <form className="mx-1 mx-md-4" onSubmit={handleEdit}>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
@@ -51,11 +93,10 @@ function UserDetailsPage() {
                               type="text"
                               id="name"
                               className="form-control"
-                              defaultValue={user.name}
-                              name="name"
-                          
+                              value={name}
+                              onChange={handleNameChange}
                             />
-                            <label className="form-label" htmlFor="form3Example1c">
+                            <label className="form-label" htmlFor="name">
                               Name
                             </label>
                           </div>
@@ -67,11 +108,10 @@ function UserDetailsPage() {
                               type="email"
                               id="email"
                               className="form-control"
-                              defaultValue={user.email}
-                              name="email"
-                          
+                              value={email}
+                              onChange={handleEmailChange}
                             />
-                            <label className="form-label" htmlFor="form3Example3cEmail">
+                            <label className="form-label" htmlFor="email">
                               Email
                             </label>
                           </div>
@@ -83,35 +123,20 @@ function UserDetailsPage() {
                               type="text"
                               id="address"
                               className="form-control"
-                              defaultValue={user.address}
-                              name="address"
-                           
+                              value={address}
+                              onChange={handleAddressChange}
                             />
-                            <label className="form-label" htmlFor="form3Example3cAddress">
+                            <label className="form-label" htmlFor="address">
                               Address
                             </label>
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-lock fa-lg me-3 fa-fw" />
-                          <div className="form-outline flex-fill mb-0">
-                            <input
-                              type="password"
-                              id="password"
-                              className="form-control"
-                              defaultValue={user.password}
-                              name="password"
-                            
-                            />
-                            <label className="form-label" htmlFor="form3Example4c">
-                              Password
-                            </label>
-                          </div>
-                        </div>
+                      
                         <div className="text-center mt-4">
-                       
-                            <button className="btn btn-primary btn-lg" onClick={handleEdit}>Edit</button>
-                          
+                          <button type="submit" className="btn btn-primary btn-lg">
+                            Save
+                          </button>
+                          <button type='submit' className="btn btn-danger btn-lg ms-3 " onClick={handleDelete} >Delete</button>
                         </div>
                       </form>
                     </div>
