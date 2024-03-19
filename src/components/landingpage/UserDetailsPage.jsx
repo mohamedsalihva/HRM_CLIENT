@@ -42,7 +42,7 @@ function UserDetailsPage() {
       
       console.log("response:", response);
 
-      alert("User details updated successfully.");
+      alert("User details updated successfullyy.");
     } catch (error) {
       console.error('Error updating user:', error);
       alert('Updation failed');
