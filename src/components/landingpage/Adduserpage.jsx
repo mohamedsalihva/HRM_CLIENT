@@ -146,7 +146,7 @@ const AddUserPage = () => {
                             id="form2Example3c"
                           />
                           <label className="form-check-label" htmlFor="form2Example3">
-                            I agree all statements in{" "}
+                            I agreee all statements in{" "}
                             <a href="#!">Terms of service</a>
                           </label>
                         </div>
