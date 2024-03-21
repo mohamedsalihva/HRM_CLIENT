@@ -6,7 +6,14 @@ const AddUserPage = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
-  const [error, setError] = useState('');
+  const [errors, setError] = useState('');
+
+ 
+  // const validateEmail = (email) => {
+  //   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // };
+
+
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -27,8 +34,19 @@ const AddUserPage = () => {
   const handleclick = async (e) => {
     e.preventDefault();
 
+    // const newErrors = {};
+
+    // if (!email) {
+
+    //   newErrors.email = 'Email is required';
+    // } else if (!validateEmail(email)) {
+    //   newErrors.email = 'Invalid email format';
+    // }
+    
+    
     if (!name || !email || !address || !password) {
-      return res.status(400).json({ error: 'All fields are required' });
+      setError('All fields are required');
+      return;
     }
   
 
@@ -80,6 +98,9 @@ const AddUserPage = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="form3Example1c">
+                              Name
+                            </label>
                             <input
                               type="text"
                               id="form3Example1c"
@@ -87,14 +108,16 @@ const AddUserPage = () => {
                               value={name}
                               onChange={handleNameChange}
                             />
-                            <label className="form-label" htmlFor="form3Example1c">
-                              Name
-                            </label>
+                         
+                          
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="form3Example3cEmail">
+                              Email
+                            </label>
                             <input
                               type="email"
                               id="form3Example3cEmail"
@@ -102,14 +125,17 @@ const AddUserPage = () => {
                               value={email}
                               onChange={handleEmailChange}
                             />
-                            <label className="form-label" htmlFor="form3Example3cEmail">
-                              Email
-                            </label>
+                        {/* {errors.email && <p className='error-message'>{errors.email}</p>} */}
+                        
+                           
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="form3Example3cAddress">
+                              Address
+                            </label>
                             <input
                               type="text"
                               id="form3Example3cAddress"
@@ -117,14 +143,16 @@ const AddUserPage = () => {
                               value={address}
                               onChange={handleAddressChange}
                             />
-                            <label className="form-label" htmlFor="form3Example3cAddress">
-                              Address
-                            </label>
+                           
+
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-lock fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="form3Example4c">
+                              Password
+                            </label>
                             <input
                               type="password"
                               id="form3Example4c"
@@ -132,9 +160,7 @@ const AddUserPage = () => {
                               value={password}
                               onChange={handlePasswordChange}
                             />
-                            <label className="form-label" htmlFor="form3Example4c">
-                              Password
-                            </label>
+                          
                           </div>
                         </div>
 
