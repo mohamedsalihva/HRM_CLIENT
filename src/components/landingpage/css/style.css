@@ -26,6 +26,11 @@ img {
   height: auto;
 }
 
+.error-message {
+  color: red;
+  margin-top: 5px; 
+}
+
 
 
 /* UTILITY CLASSES */

@@ -6,13 +6,16 @@ const AddUserPage = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
-  const [errors, setError] = useState('');
+  const [errors, setErrors] = useState({});
 
- 
-  // const validateEmail = (email) => {
-  //   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  // };
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
+  const  validatePassword =(password)=>{
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password);
+
+  }
 
 
   const handleNameChange = (e) => {
@@ -21,69 +24,79 @@ const AddUserPage = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    const isValidEmail = validateEmail(e.target.value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      email: isValidEmail ? '' : 'Invalid email format',
+    }));
   };
+
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
+   
+  
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    const isValidPassword = validatePassword(e.target.value);
+    setErrors((prevErrors) =>({
+       ...prevErrors,
+       password:isValidPassword ? '' :'invalid password'
+    }))
   };
 
-  const handleclick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const newErrors = {};
+    const newErrors = {};
 
     // if (!email) {
-
     //   newErrors.email = 'Email is required';
     // } else if (!validateEmail(email)) {
     //   newErrors.email = 'Invalid email format';
     // }
-    
-    
+
     if (!name || !email || !address || !password) {
-      setError('All fields are required');
-      return;
+      newErrors.allFields = 'All fields are required';
     }
-  
 
-    const SERVER_URL = 'http://localhost:5000';
+    setErrors(newErrors);
 
-    try {
-      const response = await axios.post(`${SERVER_URL}/Adduser`, {
-        name,
-        email,
-        address,
-        password,
-      });
-      console.log("response:",response)
-
-      if (response && response.status === 201) {
-        alert("Form submitted successfully");
-        console.log("Form submitted successfully");
-        console.log("name:",name);
-        console.log("emai:",email);
-        console.log("password:",password);
-        console.log("address:",address);
-        setName('');
-        setPassword('');
-        setEmail('');
-        setAddress('');
-      } else {
-        alert("Form submission failed");
-        console.error('Form submission failed');
+    if (Object.keys(newErrors).length === 0) {
+      
+      const SERVER_URL = 'http://localhost:5000';
+      try {
+        const response = await axios.post(`${SERVER_URL}/Adduser`, {
+          name,
+          email,
+          address,
+          password,
+        });
+        if (response && response.status === 201) {
+          alert('Form submitted successfully');
+          console.log('name:',name);
+          console.log('email:',email);
+          console.log('address:',address);
+          console.log('password:',password);
+          setName('');
+          setPassword('');
+          setEmail('');
+          setAddress('');
+        } else {
+          alert('Form submission failed');
+          console.error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error during form submission:', error);
       }
-    } catch (error) {
-      console.error('Error during form submission:', error);
     }
   };
 
   return (
     <div>
-      <section className="vh-70" style={{ backgroundColor: "#eee" }}>
+      <section className="vh-70" style={{ backgroundColor: '#eee' }}>
         <div className="container h-60">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="col-lg-12 col-xl-11 ">
@@ -91,16 +104,12 @@ const AddUserPage = () => {
                 <div className="card-body p-md-5">
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                        ADD USER
-                      </p>
-                      <form className="mx-1 mx-md-4" onSubmit={handleclick}>
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">ADD USER</p>
+                      <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
-                          <label className="form-label" htmlFor="form3Example1c">
-                              Name
-                            </label>
+                            <label className="form-label" htmlFor="form3Example1c">Name</label>
                             <input
                               type="text"
                               id="form3Example1c"
@@ -108,16 +117,13 @@ const AddUserPage = () => {
                               value={name}
                               onChange={handleNameChange}
                             />
-                         
-                          
+                            {errors.allFields && <p className="error-message">{errors.allFields}</p>}
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
-                          <label className="form-label" htmlFor="form3Example3cEmail">
-                              Email
-                            </label>
+                            <label className="form-label" htmlFor="form3Example3cEmail">Email</label>
                             <input
                               type="email"
                               id="form3Example3cEmail"
@@ -125,17 +131,13 @@ const AddUserPage = () => {
                               value={email}
                               onChange={handleEmailChange}
                             />
-                        {/* {errors.email && <p className='error-message'>{errors.email}</p>} */}
-                        
-                           
+                            <p className="error-message">{errors.email}</p>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
-                          <label className="form-label" htmlFor="form3Example3cAddress">
-                              Address
-                            </label>
+                            <label className="form-label" htmlFor="form3Example3cAddress">Address</label>
                             <input
                               type="text"
                               id="form3Example3cAddress"
@@ -143,16 +145,13 @@ const AddUserPage = () => {
                               value={address}
                               onChange={handleAddressChange}
                             />
-                           
-
+                                <p className="error-message">{errors.address}</p>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-lock fa-lg me-3 fa-fw" />
                           <div className="form-outline flex-fill mb-0">
-                          <label className="form-label" htmlFor="form3Example4c">
-                              Password
-                            </label>
+                            <label className="form-label" htmlFor="form3Example4c">Password</label>
                             <input
                               type="password"
                               id="form3Example4c"
@@ -160,10 +159,9 @@ const AddUserPage = () => {
                               value={password}
                               onChange={handlePasswordChange}
                             />
-                          
+                             <p className="error-message">{errors.password}</p>
                           </div>
                         </div>
-
                         <div className="form-check d-flex justify-content-center mb-5">
                           <input
                             className="form-check-input me-2"
@@ -172,19 +170,14 @@ const AddUserPage = () => {
                             id="form2Example3c"
                           />
                           <label className="form-check-label" htmlFor="form2Example3">
-                            I agreee all statements in{" "}
-                            <a href="#!">Terms of service</a>
+                            I agree all statements in <a href="#!">Terms of service</a>
                           </label>
                         </div>
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                          <button
-                            type="submit"
-                            className="btn btn-primary btn-lg"
-                          >
-                            AddUser
-                          </button>
+                          <button type="submit" className="btn btn-primary btn-lg">AddUser</button>
                         </div>
                       </form>
+                      {errors.allFields && <p className="error-message text-center">{errors.allFields}</p>}
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 mb-5">
                       <img

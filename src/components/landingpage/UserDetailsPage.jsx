@@ -40,7 +40,7 @@ function UserDetailsPage() {
       console.log("address:",address);
 
       
-      console.log("response:", response);
+      
 
       alert("User details updated successfullyy.");
     } catch (error) {
