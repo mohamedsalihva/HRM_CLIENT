@@ -27,20 +27,19 @@ function UserDetailsPage() {
     const SERVER_URL = 'http://localhost:5000';
 
     try {
-      const response = await axios.put(`${SERVER_URL}/UpdateUser`, {
+      const response = await axios.put(`${SERVER_URL}/users`, {
         id: user._id, 
         name,
         email,
         address,
         
       });
-      console.log("name:",name);
+      
+      console.log("response:",response);
+      console.log("name:",name)
       console.log("email:",email);
-    
       console.log("address:",address);
-
-      
-      
+     
 
       alert("User details updated successfullyy.");
     } catch (error) {
@@ -56,7 +55,7 @@ function UserDetailsPage() {
  const SERVER_URL='http://localhost:5000';
 
       try {
-       const response = await axios.delete(`${SERVER_URL}/delete`,{
+       const response = await axios.delete(`${SERVER_URL}/users`,{
         data: { id: user.id }, 
        });
        console.log("id:", user._id);

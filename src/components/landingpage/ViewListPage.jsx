@@ -10,7 +10,7 @@ function ViewListPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/getuser');
+        const response = await axios.get('http://localhost:5000/users');
         setData(response.data.data); 
       } catch (error) {
         console.error('Error fetching data:', error);

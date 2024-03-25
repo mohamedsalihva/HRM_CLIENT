@@ -50,7 +50,7 @@ const AddUserPage = () => {
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
-        'http://localhost:5000/Adduser',
+        'http://localhost:5000/users',
         {
           name,
           email,
