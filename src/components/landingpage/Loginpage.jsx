@@ -32,7 +32,7 @@ const LoginPage = () => {
       console.log("token:", token);
       console.log("statuscode:",response.data.statusCode);
       console.log("message:",response.data.message)
-      localStorage.setItem("token", token);
+      localStorage.setItem("accessToken", token);
       setIsLoggedIn(true);
       
       alert('Login successful');

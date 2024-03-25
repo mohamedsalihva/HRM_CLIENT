@@ -31,10 +31,8 @@ const AddUserPage = () => {
     }));
   };
 
-
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
-   
   
   };
 
@@ -46,53 +44,45 @@ const AddUserPage = () => {
        password:isValidPassword ? '' :'invalid password'
     }))
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newErrors = {};
-
-    // if (!email) {
-    //   newErrors.email = 'Email is required';
-    // } else if (!validateEmail(email)) {
-    //   newErrors.email = 'Invalid email format';
-    // }
-
-    if (!name || !email || !address || !password) {
-      newErrors.allFields = 'All fields are required';
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      
-      const SERVER_URL = 'http://localhost:5000';
-      try {
-        const response = await axios.post(`${SERVER_URL}/Adduser`, {
+    try {
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.post(
+        'http://localhost:5000/Adduser',
+        {
           name,
           email,
           address,
           password,
-        });
-        if (response && response.status === 201) {
-          alert('Form submitted successfully');
-          console.log('name:',name);
-          console.log('email:',email);
-          console.log('address:',address);
-          console.log('password:',password);
-          setName('');
-          setPassword('');
-          setEmail('');
-          setAddress('');
-        } else {
-          alert('Form submission failed');
-          console.error('Form submission failed');
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.error('Error during form submission:', error);
+      );
+
+      if (response && response.status === 201) {
+        alert('Form submitted successfully');
+        console.log("name:",name);
+        console.log("email:",email);
+        console.log("password:",password);
+        console.log("address:",address);
+        setName('');
+        setPassword('');
+        setEmail('');
+        setAddress('');
+      } else {
+        alert('Form submission failed');
+        console.error('Form submission failed');
       }
+    } catch (error) {
+      console.error('Error during form submission:', error);
     }
   };
+
 
   return (
     <div>
