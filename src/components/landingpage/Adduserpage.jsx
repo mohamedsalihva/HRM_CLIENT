@@ -160,7 +160,7 @@ const AddUserPage = () => {
                             id="form2Example3c"
                           />
                           <label className="form-check-label" htmlFor="form2Example3">
-                            I agree all statements in <a href="#!">Terms of service</a>
+                            I agree all statements in <a href="#!">Term of service</a>
                           </label>
                         </div>
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
