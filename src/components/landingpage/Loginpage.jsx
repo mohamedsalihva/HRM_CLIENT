@@ -1,54 +1,73 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import axios from 'axios';
+import PopupMessage from './PopupMessage';
+import './css/style.css'; // Import the external CSS file for PopupMessage
 
 const LoginPage = () => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [error,setError]=useState('')
+  const [error, setError] = useState('');
+
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+
+  const showSuccessPopup = (message) => {
+    console.log('Showing success popup:', message);
+    setPopupMessage(message);
+    setPopupType('success');
+    setShowPopup(true);
+  };
+
+  const handleOk = () => {
+    setShowPopup(false);
+    if (isLoggedIn) {
+      window.location.href = '/Landingpage'; 
+    }
+  };
+  
+  const showErrorPopup = (message) => {
+    console.log('Showing error popup:', message);
+    setPopupMessage(message);
+    setPopupType('error');
+    setShowPopup(true);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
-  
+
     const SERVER_URL = 'http://localhost:5000';
-  
+
     try {
       const response = await axios.post(`${SERVER_URL}/login`, {
         email,
         password,
       });
-  
-      
+
       let responseData = await response.data;
       let token = responseData.data;
-      console.log("token:", token);
-      console.log("statuscode:",response.data.statusCode);
-      console.log("message:",response.data.message)
-      localStorage.setItem("accessToken", token);
+      localStorage.setItem('accessToken', token);
       setIsLoggedIn(true);
-      
-      alert('Login successful');
-     
-  } catch (error) {
-      console.log("Error:", error);
-      alert('Login failed');
-      return { statusCode: 404, message: "Something went wrong" };
-  }
-}
+      showSuccessPopup('Login successful');
+      console.log("login success");
 
+    } catch (error) {
+      console.log('Error:', error);
+      showErrorPopup('Login failed');
+      console.log("login failed");
+      return { statusCode: 404, message: 'Something went wrong' };
+    }
+  };
 
-  if (isLoggedIn) {
-    window.location.href = '/Landingpage';
-  }
-
+  // if (isLoggedIn) {
+  //   window.location.href = '/Landingpage';
+  // }
 
   return (
     <div>
@@ -143,28 +162,18 @@ const LoginPage = () => {
             </div>
           </div>
         </div>
-        <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-          {/* Copyright */}
-          <div className="text-white mb-3 mb-md-0 mt-3">Copyright © 2020. All rights reserved.</div>
-          {/* Right */}
-          <div>
-            <a href="#!" className="text-white me-4">
-              <i className="fab fa-facebook-f" />
-            </a>
-            <a href="#!" className="text-white me-4">
-              <i className="fab fa-twitter" />
-            </a>
-            <a href="#!" className="text-white me-4">
-              <i className="fab fa-google" />
-            </a>
-            <a href="#!" className="text-white">
-              <i className="fab fa-linkedin-in" />
-            </a>
-          </div>
-          {/* Right */}
-        </div>
       </section>
+ {/* PopupMessage component - Only render when isLoggedIn is true */}
+ {showPopup && (
+        <PopupMessage
+          type={popupType}
+          message={popupMessage}
+          onOk={handleOk}
+          onTryAgain={() => setShowPopup(false)} // Close popup on "Try Again"
+        />
+      )}
     </div>
+
   );
 };
 
