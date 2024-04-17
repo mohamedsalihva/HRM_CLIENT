@@ -10,7 +10,7 @@ const PopupMessage = ({ type, message, onOk, onTryAgain }) => {
     <div className={className}>
       <p>{message}</p>
       {type === 'success' && <button className='popupbutton' onClick={onOk}>OK</button>}
-      {type === 'error' && <button className='popupbutton2' onClick={onTryAgain}>Try Again</button>}
+      {type === 'error' && <button className='popupbutton2' onClick={() => {onTryAgain(); onOk();}}>Try Again</button>}
     </div>
   );
 };

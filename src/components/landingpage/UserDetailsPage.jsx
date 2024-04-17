@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import PopupMessage from './PopupMessage';
+import './css/style.css';
 
 function UserDetailsPage() {
   const location = useLocation();
@@ -8,6 +10,7 @@ function UserDetailsPage() {
   const [name, setName] = useState(user.name || '');
   const [email, setEmail] = useState(user.email || '');
   const [address, setAddress] = useState(user.address || '');
+  const [popup, setPopup] = useState({ isOpen: false, type: '', message: '' });
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -21,55 +24,64 @@ function UserDetailsPage() {
     setAddress(e.target.value);
   };
 
-  
+  const showPopup = (type, message) => {
+    setPopup({ isOpen: true, type, message });
+  };
+
   const handleEdit = async (e) => {
     e.preventDefault();
     const SERVER_URL = 'http://localhost:5000';
 
     try {
       const response = await axios.put(`${SERVER_URL}/users`, {
-        id: user._id, 
+        id: user._id,
         name,
         email,
         address,
-        
       });
-      
-      console.log("response:",response);
-      console.log("name:",name)
-      console.log("email:",email);
-      console.log("address:",address);
-     
 
-      alert("User details updated successfullyy.");
+      if (response.status >= 200 && response.status < 300) {
+        showPopup('success', 'User details updated successfully');
+      } else {
+        showPopup('error', 'Unknown error occurred');
+      }
+
+      console.log("response:", response);
+      console.log("name:", name);
+      console.log("email:", email);
+      console.log("address:", address);
     } catch (error) {
       console.error('Error updating user:', error);
-      alert('Updation failed');
+      showPopup('error', 'Updation failed');
     }
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const SERVER_URL = 'http://localhost:5000';
 
-  const  handleDelete =async(e)=>{
- e.preventDefault();
+    try {
+      const response = await axios.delete(`${SERVER_URL}/users`, {
+        data: { id: user._id },
+      });
 
- const SERVER_URL='http://localhost:5000';
-
-      try {
-       const response = await axios.delete(`${SERVER_URL}/users`,{
-        data: { id: user.id }, 
-       });
-       console.log("id:", user._id);
-       console.log("response:",response);
-
-       alert("user deleted succesfully");
-
-      } catch (error) {
-        console.error('Error updating user:', error);
-        alert('deletion failed')
+      if (response.status >= 200 && response.status < 300) {
+        showPopup('success', 'User deleted successfully');
+      } else {
+        showPopup('error', 'Deletion failed');
       }
-  }
 
-  
+      console.log("id:", user._id);
+      console.log("response:", response);
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      showPopup('error', 'Deletion failed');
+    }
+  };
+
+  const handlePopupClose = () => {
+    setPopup({ ...popup, isOpen: false });
+  };
 
   return (
     <div>
@@ -130,12 +142,13 @@ function UserDetailsPage() {
                             </label>
                           </div>
                         </div>
-                      
                         <div className="text-center mt-4">
                           <button type="submit" className="btn btn-primary btn-lg">
                             Save
                           </button>
-                          <button type='submit' className="btn btn-danger btn-lg ms-3 " onClick={handleDelete} >Delete</button>
+                          <button type="button" className="btn btn-danger btn-lg ms-3" onClick={handleDelete}>
+                            Delete
+                          </button>
                         </div>
                       </form>
                     </div>
@@ -153,12 +166,19 @@ function UserDetailsPage() {
           </div>
         </div>
       </section>
+      {popup.isOpen && (
+        <PopupMessage
+          type={popup.type}
+          message={popup.message}
+          onOk={handlePopupClose}
+          onTryAgain={handleEdit}
+        />
+      )}
     </div>
   );
 }
 
 export default UserDetailsPage;
-
 
 {/* <h2>User Details</h2>
 <p><strong>ID:</strong> {user._id}</p>
