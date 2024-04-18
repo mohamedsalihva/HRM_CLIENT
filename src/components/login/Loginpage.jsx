@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PopupMessage from './PopupMessage';
-import './css/style.css'; // Import the external CSS file for PopupMessage
+import PopupMessage from '../popupmessage/PopupMessage';
+import '../css/style.css'; // Import the external CSS file for PopupMessage
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

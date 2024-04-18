@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './css/style.css'; // Import the external CSS file
+import '../css/style.css'; 
 
 const PopupMessage = ({ type, message, onOk, onTryAgain }) => {
-  // Determine the class name based on the type prop
+ 
   const className = type === 'success' ? 'popup-message success' : 'popup-message error';
 
   return (

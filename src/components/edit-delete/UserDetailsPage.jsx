@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import PopupMessage from './PopupMessage';
-import './css/style.css';
+import PopupMessage from '../popupmessage/PopupMessage';
+import '../css/style.css';
 
 function UserDetailsPage() {
   const location = useLocation();

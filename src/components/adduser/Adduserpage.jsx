@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PopupMessage from './PopupMessage';
-import './css/style.css';
+import PopupMessage from '../popupmessage/PopupMessage';
+import '../css/style.css';
 
 const AddUserPage = () => {
   const [name, setName] = useState('');

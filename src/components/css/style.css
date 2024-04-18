@@ -368,41 +368,41 @@ img {
 
 
 /* popupmessages */
-
 .popup-message {
-  width: 300px;
+  width: 320px; 
   position: fixed;
-  top: 15%;
-  left: 50%;
+  top: 50%; 
+  left: 50%; 
   transform: translate(-50%, -50%);
-  padding: 1rem;
-  font-size: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: fantasy;
+  padding: 1.5rem; 
+  font-size: 18px; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  font-family: 'Arial', sans-serif; 
+  text-align: center;
 }
 
 .success {
- 
-  background-color: green;
-  color: white;
-
+  background-color: #4CAF50; 
+  color: #FFFFFF; 
 }
 
 .error {
-  background-color: rgb(255, 0, 0);
-  color: white;
+  background-color: #FF6347; 
+  color: #FFFFFF; 
 }
 
-.popupbutton{
-width: 50px;
-border-radius: 5PX;
-font-family: fantasy;
+.popup-button {
+  width: 120px; 
+  height: 40px; 
+  border: none;
+  border-radius: 5px;
+  font-size: 16px; 
+  font-family: 'Arial', sans-serif; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.popupbutton2{
-  width: 90px;
-  font-size: 15px;
-  border-radius: 5PX;
-  font-family: fantasy;
-  }
+.popup-button:hover {
+  opacity: 0.9; 
+}

@@ -1,13 +1,13 @@
 import React from 'react';
-import Navbar from './Navbar';
-import '../landingpage/css/style.css';
-import image1 from "./image/steve-jobs-macintosh.jpg";
-import image2 from "./image/project-2.jpg";
-import image3 from "./image/project-3.jpg";
-import image4 from "./image/project-4.jpg";
-import image5 from "./image/project-5.jpg";
-import image6 from "./image/project-6.jpg";
-import Footer from './Footer';
+import Navbar from '../navbar/Navbar';
+import '../css/style.css';
+import image1 from "../image/steve-jobs-macintosh.jpg";
+import image2 from "../image/project-2.jpg";
+import image3 from "../image/project-3.jpg";
+import image4 from "../image/project-4.jpg";
+import image5 from "../image/project-5.jpg";
+import image6 from "../image/project-6.jpg";
+import Footer from '../footer/Footer';
 
 const LandingPage = () => {
   return (

@@ -30,11 +30,11 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './components/landingpage/Loginpage';
+import LoginPage from './components/login/Loginpage';
 import LandingPage from './components/landingpage/Landingpage';
-import AddUserPage from './components/landingpage/Adduserpage';
-import ViewListPage from './components/landingpage/ViewListPage';
-import UserDetailsPage from './components/landingpage/UserDetailsPage';
+import AddUserPage from './components/adduser/Adduserpage';
+import ViewListPage from './components/veiwlist/ViewListPage';
+import UserDetailsPage from './components/edit-delete/UserDetailsPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
