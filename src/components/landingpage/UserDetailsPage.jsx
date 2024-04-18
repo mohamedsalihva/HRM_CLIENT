@@ -62,7 +62,7 @@ function UserDetailsPage() {
 
     try {
       const response = await axios.delete(`${SERVER_URL}/users`, {
-        data: { id: user._id },
+        data: { _id: user._id },
       });
 
       if (response.status >= 200 && response.status < 300) {

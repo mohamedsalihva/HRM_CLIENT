@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import PopupMessage from './PopupMessage';
+import './css/style.css';
 
 const AddUserPage = () => {
   const [name, setName] = useState('');
@@ -7,16 +9,15 @@ const AddUserPage = () => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [errors, setErrors] = useState({});
+  const [popup, setPopup] = useState({ isOpen: false, type: '', message: '' });
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const  validatePassword =(password)=>{
+  const validatePassword = (password) => {
     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password);
-
-  }
-
+  };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -33,17 +34,21 @@ const AddUserPage = () => {
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
-  
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     const isValidPassword = validatePassword(e.target.value);
-    setErrors((prevErrors) =>({
-       ...prevErrors,
-       password:isValidPassword ? '' :'invalid password'
-    }))
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      password: isValidPassword ? '' : 'Invalid password',
+    }));
   };
+
+  const showPopup = (type, message) => {
+    setPopup({ isOpen: true, type, message });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,26 +69,35 @@ const AddUserPage = () => {
         }
       );
 
-      if (response && response.status === 201) {
-        alert('Form submitted successfully');
-        console.log("name:",name);
-        console.log("email:",email);
-        console.log("password:",password);
-        console.log("address:",address);
+      if (response.status >= 200 && response.status < 300) {
+        showPopup('success', 'Form submitted successfully');
+        console.log("name:", name);
+        console.log("email:", email);
+        console.log("password:", password);
+        console.log("address:", address);
         setName('');
         setPassword('');
         setEmail('');
         setAddress('');
       } else {
-        alert('Form submission failed');
+        showPopup('error', 'Form submission failed');
         console.error('Form submission failed');
       }
     } catch (error) {
       console.error('Error during form submission:', error);
+      showPopup('error', 'Error during form submission');
     }
   };
 
-
+  const handlePopupOk = () => {
+    setPopup({ ...popup, isOpen: false });
+  };
+ 
+  const handlePopupTryAgain = () => {
+    setPopup({ ...popup, isOpen: false });
+    // Implement retry logic here
+  };
+  
   return (
     <div>
       <section className="vh-70" style={{ backgroundColor: '#eee' }}>
@@ -183,6 +197,14 @@ const AddUserPage = () => {
           </div>
         </div>
       </section>
+      {popup.isOpen && (
+        <PopupMessage
+          type={popup.type}
+          message={popup.message}
+          onOk={handlePopupOk}
+          onTryAgain={handlePopupTryAgain}
+        />
+      )}
     </div>
   );
 };
