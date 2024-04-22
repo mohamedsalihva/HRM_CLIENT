@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PopupMessage from '../popupmessage/PopupMessage';
 import '../css/style.css'; // Import the external CSS file for PopupMessage
@@ -23,10 +24,10 @@ const LoginPage = () => {
   const handleOk = () => {
     setShowPopup(false);
     if (isLoggedIn) {
-      window.location.href = '/Landingpage'; 
+      window.location.href = '/Landingpage';
     }
   };
-  
+
   const showErrorPopup = (message) => {
     console.log('Showing error popup:', message);
     setPopupMessage(message);
@@ -140,9 +141,10 @@ const LoginPage = () => {
                       Remember me
                     </label>
                   </div>
-                  <div href="#!" className="text-body">
-                    Forgot password?
+                  <div className="text-body">
+                    <Link to="/forgot-password">Forgot password?</Link>
                   </div>
+
                 </div>
                 <div className="text-center text-lg-start mt-4 pt-2">
                   <button
@@ -163,8 +165,8 @@ const LoginPage = () => {
           </div>
         </div>
       </section>
- {/* PopupMessage component - Only render when isLoggedIn is true */}
- {showPopup && (
+      {/* PopupMessage component - Only render when isLoggedIn is true */}
+      {showPopup && (
         <PopupMessage
           type={popupType}
           message={popupMessage}
