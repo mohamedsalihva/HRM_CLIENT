@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PopupMessage from '../popupmessage/PopupMessage';
-import '../css/style.css'; // Import the external CSS file for PopupMessage
+import '../css/style.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

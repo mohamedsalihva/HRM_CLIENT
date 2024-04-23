@@ -39,7 +39,7 @@ function ForgotPassword() {
         setErrorMessage('Email sending failed');
       }
     } catch (error) {
-      console.error('Error sending forgot password request:', error);
+      console.error('Error sending forgot password request');
       setErrorMessage('Something went wrong: ' + error.message);
     }
     setSubmitting(false);
