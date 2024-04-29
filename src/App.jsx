@@ -8,6 +8,7 @@ import AddUserPage from './components/adduser/Adduserpage';
 import ViewListPage from './components/veiwlist/ViewListPage';
 import UserDetailsPage from './components/edit-delete/UserDetailsPage';
 import ForgotPassword from './components/forgot-password/ForgotPassword';
+import ResetPassword from './components/reset-password/ResetPassword';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path="/viewList" element={<ViewListPage />} />
         <Route path="/user/:id" element={<UserDetailsPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />}/>
+        <Route path="/reset-password"  element={<ResetPassword/>}/>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
