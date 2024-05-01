@@ -3,25 +3,43 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 function ViewListPage() {
-  
   const [data, setData] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(3); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/users');
-        setData(response.data.data); 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    fetchData(currentPage);
+  }, [currentPage]);
 
-    fetchData();
-  }, []);
+  const fetchData = async (page) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users?page=${page}&pageSize=${pageSize}`);
+      if (response.data && response.data.success) {
+        setData(response.data.data.users);
+        setTotalPages(response.data.data.totalPages);
+        setCurrentPage(response.data.data.currentPage);
+      } else {
+        console.error('Invalid API response:', response);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const handleView = (item) => {
     navigate(`/user/${item.id}`, { state: { user: item } });
+  };
+
+  const handlePageChange = (page) => {
+    
+    if (page < 1) {
+      page = 1;
+    } else if (page > totalPages) {
+      page = totalPages;
+    }
+    setCurrentPage(page);
   };
 
   return (
@@ -49,20 +67,16 @@ function ViewListPage() {
           ))}
         </tbody>
       </table>
+      <div>
+       
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+        <span> Page {currentPage} of {totalPages} </span>
+     
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
+      </div>
     </div>
   );
 }
 
 export default ViewListPage;
 
-
-{/* {selectedUser && (
-  <div className="user-details">
-    <h2>User Details</h2>
-    <p><strong>ID:</strong> {selectedUser.id}</p>
-    <p><strong>Name:</strong> {selectedUser.name}</p>
-    <p><strong>Email:</strong> {selectedUser.email}</p>
-    <p><strong>Address:</strong> {selectedUser.address}</p>
-    <button onClick={handleCloseDetails}>Close</button>
-  </div>
-)} */}
